@@ -1,0 +1,76 @@
+---
+title: "Tutorial 6: Refactoring R Code"
+format:
+    html:
+        toc: true
+        toc-depth: 3
+        toc-title: Table of Contents
+        embed-resources: true
+editor: source
+execute:
+  echo: false
+  warning: false
+  message: false
+  output: true
+---
+
+# Introduction
+
+In this tutorial, you will refactor the code into separate scripts corresponding to each section. The dataset we will use comes from the `palmerpenguins` package, which contains measurements of penguins from three species.
+
+## Load Libraries and Data
+
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+library(tidymodels)
+library(kknn)
+```
+
+# Methods
+
+In this section, we perform exploratory data analysis (EDA) and prepare the data for modeling.
+
+From @tbl-glimpsed and @tbl-summarized we get a rough idea of the data.
+```{r}
+#| label: tbl-glimpsed
+#| tbl-cap: Glimpsed Summary
+
+read_csv('../outputs/glimpsed.csv')
+```
+
+```{r}
+#| label: tbl-summarized
+#| tbl-cap: Summarized Summary
+
+read_csv('../outputs/summarized.csv')
+```
+
+![EDA](../outputs/eda.png){#fig-eda}
+
+
+# Model
+
+We will fit a classification model using `tidymodels` to predict the species of a penguin based on its physical characteristics.
+
+# Results
+
+We evaluate the performance of the model using the test dataset in @tbl-conf-mat
+
+```{r}
+#| label: tbl-conf-mat
+#| tbl-cap: "Confusion Matrix Table"
+
+cm <- readRDS("../outputs/conf_mat.rds")
+cm_table <- cm$table
+knitr::kable(cm_table)
+```
+
+# Conclusion
+
+In this tutorial, we:
+
+- Loaded and cleaned the `palmerpenguins` dataset.
+- Performed exploratory data analysis.
+- Built a k-Nearest Neighbors classification model using `tidymodels`.
+- Evaluated the model's performance.
